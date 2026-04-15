@@ -1,6 +1,6 @@
-# PostApp
+# Nexus
 
-A simple, feature-rich React application built with TypeScript and Vite that displays posts and comments from the JSONPlaceholder API. It includes a mock authentication system, dark mode support via TailwindCSS, and client-side caching with TanStack Query.
+A premium, feature-rich React application built with TypeScript and Vite that displays articles and discussions from the JSONPlaceholder API. It includes a mock authentication system, dynamic Light/Dark mode support, and persistent client-side caching with TanStack Query.
 
 ## Setup Instructions
 
@@ -16,48 +16,51 @@ A simple, feature-rich React application built with TypeScript and Vite that dis
    ```bash
    pnpm install
    ```
-3. Start the development server:
+3. Initialize Cypress (required for E2E tests):
+   ```bash
+   npx cypress install
+   ```
+4. Start the development server:
    ```bash
    pnpm run dev
    ```
 
 ### Running Tests
 
-To run the automated test suite (Vitest + MSW for API mocking + Testing Library for components):
+#### Unit & Integration Tests (Vitest)
+
+To run the automated suite for components and services:
 
 ```bash
 pnpm test
 ```
 
-### Building for Production
+#### End-to-End Tests (Cypress)
+
+To open the interactive Test Runner:
 
 ```bash
-pnpm run build
+pnpm run cypress:open
+```
+
+To run tests headlessly (CI mode):
+
+```bash
+pnpm run cypress:run
 ```
 
 ## Decisions & Tradeoffs
 
-1. **Routing Strategy**: Chose `react-router-dom` v7 using `createBrowserRouter`. This allows for nesting routes cleanly and sharing layout logic (`RootLayout.tsx`).
-
-2. **Fetching & Caching Strategy (TanStack Query)**:
-   - Used `@tanstack/react-query` to manage server state.
-   - It provides automatic caching, background fetching, and loading/error states without the boilerplate of `useEffect` or complex Redux slices.
-   - Chose a default stale time of 5 minutes as the placeholder data doesn't change frequently.
-
-3. **Authentication Strategy (Context + Mock Service)**:
-   - Implemented a lightweight mocked Auth service wrapped in standard React Context (`AuthProvider.tsx`).
-   - Mocked a slight delay (setTimeout) to simulate an actual network request.
-   - Using local storage to persist the pseudo user session across refreshes.
-   - _Tradeoff_: Kept auth simple with a single context instead of a global state lib (like Zustand) to minimize heavy dependencies.
-
-4. **Testing Strategy**:
-   - Swapped Jest out for `vitest` since Vite is used. This allows identical module resolution matching dev environment.
-   - Used Mock Service Worker (`msw`) for intercepted backend requests rather than relying on global `fetch` mocking. It's much more robust and guarantees actual code paths remain unmodified.
-
-5. **Styling Approach**:
-   - Used Tailwind CSS v4 for utility-first class naming.
-   - Set up standard Dark Mode toggling using Tailwind's `dark:` classes (`bg-slate-900`, `text-slate-50`).
+1. **Branding (Nexus)**: Chose a premium "Nexus" identity to move away from generic "Post" terminology, focusing on a clean, centralized experience.
+2. **Theme Management (ThemeProvider)**: Implemented a robust theme context that manages light/dark states and persists preference to `localStorage`. Used CSS variables in `index.css` for a "theme-first" design approach.
+3. **Data Caching & Persistence**:
+   - Used `@tanstack/react-query` for memory caching.
+   - Added `@tanstack/query-sync-storage-persister` to sync data to `localStorage`, ensuring an instant "offline-first" feel.
+4. **Debounced Search**: Implemented a custom `useDebounce` hook to optimize API calls by delaying search requests until the user finishes typing (500ms).
+5. **Testing Architecture**:
+   - **Unit**: Vitest + Testing Library for individual component logic.
+   - **E2E**: Cypress for testing critical user journeys (Auth, Navigation, Theme).
 
 ## CI/CD Pipeline
 
-- Pre-configured `.github/workflows/ci.yml` runs Lint, tests, and a production build constraint check automatically on PRs and pushes to `main`.
+- Pre-configured `.github/workflows/ci.yml` runs Lint, Vitest, and a production build constraint check automatically on PRs and pushes to `main`.

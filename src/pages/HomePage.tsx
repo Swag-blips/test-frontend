@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Search } from "lucide-react";
 import { usePosts } from "../features/posts/hooks/usePosts";
 import { PostCard } from "../features/posts/components/PostCard";
 import { Input } from "../components/ui/Input";
@@ -34,9 +35,7 @@ export const HomePage = () => {
           placeholder="Type a title..."
           value={searchTerm}
           onChange={handleSearchChange}
-          icon={
-            <span className="material-symbols-outlined text-xl">search</span>
-          }
+          icon={<Search size={20} className="text-on-surface-variant" />}
         />
       </div>
 

@@ -1,14 +1,15 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  icon?: string;
+  icon?: LucideIcon;
   isLoading?: boolean;
 }
 
 export const Button = ({
   children,
-  icon,
+  icon: Icon,
   isLoading,
   ...props
 }: ButtonProps) => {
@@ -19,9 +20,7 @@ export const Button = ({
       {...props}
     >
       <span>{isLoading ? "Processing..." : children}</span>
-      {icon && !isLoading && (
-        <span className="material-symbols-outlined text-lg">{icon}</span>
-      )}
+      {Icon && !isLoading && <Icon size={18} />}
     </button>
   );
 };

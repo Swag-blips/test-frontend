@@ -1,3 +1,4 @@
+import { ArrowLeft, MessageSquare } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePost } from "../features/posts/hooks/usePosts";
 import { useComments } from "../features/comments/hooks/useComments";
@@ -24,7 +25,7 @@ export const PostDetailsPage = () => {
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-primary hover:text-primary-container transition-colors w-fit text-sm font-bold tracking-widest uppercase font-manrope"
       >
-        <span className="material-symbols-outlined text-lg">arrow_back</span>
+        <ArrowLeft size={18} />
         Back to Dashboard
       </button>
 
@@ -71,9 +72,7 @@ export const PostDetailsPage = () => {
       {/* Comments Section */}
       <section className="flex flex-col gap-6 mt-4">
         <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary text-xl">
-            forum
-          </span>
+          <MessageSquare size={20} className="text-primary" />
           <h2 className="font-manrope text-xl font-bold tracking-tight text-on-surface">
             Discussion
           </h2>

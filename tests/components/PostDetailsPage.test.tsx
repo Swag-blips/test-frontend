@@ -2,9 +2,15 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { PostDetailsPage } from "../../src/pages/PostDetailsPage";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import * as postHooks from "../../src/features/posts/hooks/usePosts";
 import * as commentHooks from "../../src/features/comments/hooks/useComments";
+import type { Post } from "../../src/features/posts/types";
+import type { Comment } from "../../src/features/comments/types";
 
 vi.mock("../../src/features/posts/hooks/usePosts");
 vi.mock("../../src/features/comments/hooks/useComments");
@@ -21,12 +27,12 @@ describe("PostDetailsPage Component", () => {
       data: undefined,
       isLoading: true,
       isError: false,
-    } as any);
+    } as UseQueryResult<Post, Error>);
     vi.mocked(commentHooks.useComments).mockReturnValue({
       data: undefined,
       isLoading: true,
       isError: false,
-    } as any);
+    } as UseQueryResult<Comment[], Error>);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -39,7 +45,6 @@ describe("PostDetailsPage Component", () => {
     );
 
     expect(screen.getByText("Back to Dashboard")).toBeInTheDocument();
-    // One of the skeleton divs or loading text should be present
     expect(screen.getByText("Loading comments...")).toBeInTheDocument();
   });
 
@@ -48,14 +53,20 @@ describe("PostDetailsPage Component", () => {
       data: { id: 1, title: "Detail Title", body: "Detail Body", userId: 1 },
       isLoading: false,
       isError: false,
-    } as any);
+    } as UseQueryResult<Post, Error>);
     vi.mocked(commentHooks.useComments).mockReturnValue({
       data: [
-        { id: 1, name: "Commenter", email: "c@e.com", body: "Comment body" },
+        {
+          id: 1,
+          name: "Commenter",
+          email: "c@e.com",
+          body: "Comment body",
+          postId: 1,
+        },
       ],
       isLoading: false,
       isError: false,
-    } as any);
+    } as UseQueryResult<Comment[], Error>);
 
     render(
       <QueryClientProvider client={queryClient}>

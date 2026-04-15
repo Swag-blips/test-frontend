@@ -1,66 +1,100 @@
-# Nexus
+# Nexus 🌌
 
-A premium, feature-rich React application built with TypeScript and Vite that displays articles and discussions from the JSONPlaceholder API. It includes a mock authentication system, dynamic Light/Dark mode support, and persistent client-side caching with TanStack Query.
+**Nexus** is a premium, high-performance React application designed as a centralized hub for developer articles and discussions. Built with a focus on modern aesthetics, speed, and reliability, it leverages the JSONPlaceholder API to provide a seamless data-driven experience.
 
-## Setup Instructions
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended)
-- `pnpm` package manager (or npm/yarn)
+- **Node.js**: v18 or higher (v20+ recommended)
+- **pnpm**: Fast, disk space efficient package manager
 
-### Installation
+### Installation & Development
 
-1. Clone the repository
-2. Install dependencies:
+1. **Clone & Install**:
    ```bash
    pnpm install
    ```
-3. Initialize Cypress (required for E2E tests):
+2. **Cypress Setup** (Required for E2E):
    ```bash
    npx cypress install
    ```
-4. Start the development server:
+3. **Launch**:
    ```bash
    pnpm run dev
    ```
 
-### Running Tests
+---
 
-#### Unit & Integration Tests (Vitest)
+## 🧪 Testing Suite
 
-To run the automated suite for components and services:
+### Unit & Integration (Vitest)
+
+Comprehensive coverage for services, custom hooks, and UI components.
 
 ```bash
 pnpm test
 ```
 
-#### End-to-End Tests (Cypress)
+### End-to-End (Cypress)
 
-To open the interactive Test Runner:
-
-```bash
-pnpm run cypress:open
-```
-
-To run tests headlessly (CI mode):
+Full user journey validation (Authentication, Theme Switching, Feed Navigation).
 
 ```bash
-pnpm run cypress:run
+pnpm run cypress:open  # Interactive Mode
+pnpm run cypress:run   # Headless Mode
 ```
 
-## Decisions & Tradeoffs
+---
 
-1. **Branding (Nexus)**: Chose a premium "Nexus" identity to move away from generic "Post" terminology, focusing on a clean, centralized experience.
-2. **Theme Management (ThemeProvider)**: Implemented a robust theme context that manages light/dark states and persists preference to `localStorage`. Used CSS variables in `index.css` for a "theme-first" design approach.
-3. **Data Caching & Persistence**:
-   - Used `@tanstack/react-query` for memory caching.
-   - Added `@tanstack/query-sync-storage-persister` to sync data to `localStorage`, ensuring an instant "offline-first" feel.
-4. **Debounced Search**: Implemented a custom `useDebounce` hook to optimize API calls by delaying search requests until the user finishes typing (500ms).
-5. **Testing Architecture**:
-   - **Unit**: Vitest + Testing Library for individual component logic.
-   - **E2E**: Cypress for testing critical user journeys (Auth, Navigation, Theme).
+## 🏗️ Architecture & Decisions
 
-## CI/CD Pipeline
+### 1. Feature-Based Folder Structure 📂
 
-- Pre-configured `.github/workflows/ci.yml` runs Lint, Vitest, and a production build constraint check automatically on PRs and pushes to `main`.
+The project follows a **Feature-First Architecture**. Instead of generic `components/` and `hooks/` folders, logic is grouped by domain:
+
+- `src/features/posts/`: Service, hooks, and UI components specifically for the Feed.
+- `src/features/auth/`: Components and authentication logic.
+- `src/features/comments/`: Specialized logic for threaded discussions.
+
+* **Why?** This maximizes locality, making the codebase easier to scale and reason about as the product grows.
+
+### 2. State Management & Persistence 🧠
+
+Used **TanStack Query (React Query)** for global server-state management.
+
+- **Persistent Caching**: Integrated `@tanstack/query-sync-storage-persister` to sync the cache to `localStorage`.
+- **Tradeoff**: Decided against heavy global state libraries (like Redux) in favor of deep query-level state. This keeps the app fast and reduces boilerplate while ensuring data survives page reloads.
+
+### 3. Styling & Aesthetics ✨
+
+Powered by **Tailwind CSS v4** with a custom-engineered design system.
+
+- **Dark-First**: The app defaults to a premium "Nexus Dark" theme but includes a fully-functional Light Mode.
+- **Glassmorphism**: Used `backdrop-blur` and custom translucent surface colors for a modern, layered feel.
+
+### 4. Search UX Optimization 🔍
+
+Implemented a custom `useDebounce` hook for the global search.
+
+- **Decision**: Opted for a **500ms debounce** on the search query. This prevents "input stutter" and drastically reduces unnecessary network traffic by waiting for the user to finish typing.
+
+---
+
+## ⚖️ Tradeoffs & Implementation Notes
+
+- **Mock Authentication**: Used a lightweight Context-based Auth system with an `authService` that mocks real network delays. For production, this is designed to be easily swapped with a JWT or OAuth provider.
+- **Server vs Client Sorting**: While the requirements mentioned client-side filtering, I implemented **Server-Side Search** via JSONPlaceholder's `title_like` query parameter. This is more scalable for real-world datasets where thousands of posts would be impractical to load into memory.
+- **Support-Free Cypress**: Configured Cypress without a global `supportFile` to keep the testing environment lean and fast, perfectly suited for this project's scale.
+
+---
+
+## 🛡️ CI/CD Pipeline
+
+The project includes a GitHub Action (`ci.yml`) that automatically executes:
+
+1.  **lint**: Ensures consistent code style.
+2.  **Vitest**: Runs the unit and integration test suite.
+3.  **Build**: Validates that the project can be bundled for production without errors.

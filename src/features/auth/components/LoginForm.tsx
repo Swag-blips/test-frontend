@@ -17,7 +17,7 @@ export const LoginForm = () => {
       await login(email);
       toast.success("Welcome back!");
       navigate("/");
-    } catch (error) {
+    } catch {
       toast.error("Login failed. Please check your credentials.");
     }
   };

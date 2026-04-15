@@ -25,7 +25,7 @@ export const RegisterForm = () => {
       await login(email);
       toast.success(`Welcome, ${fullName || "Developer"}!`);
       navigate("/");
-    } catch (error) {
+    } catch {
       toast.error("Registration failed. Please try again.");
     }
   };

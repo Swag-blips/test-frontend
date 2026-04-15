@@ -1,6 +1,6 @@
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthContext";
-import { useTheme } from "../../providers/ThemeProvider";
+import { useTheme } from "../../providers/ThemeContext";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { User, AtSign, Lock, ShieldCheck, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthContext";
 import { Input } from "../../../components/ui/Input";
@@ -36,7 +37,7 @@ export const RegisterForm = () => {
         id="full_name"
         type="text"
         label="Full Name"
-        icon={<span className="material-symbols-outlined text-xl">person</span>}
+        icon={<User size={18} className="text-on-surface-variant" />}
         placeholder="Alex Rivera"
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
@@ -47,11 +48,7 @@ export const RegisterForm = () => {
         id="email"
         type="email"
         label="Email Address"
-        icon={
-          <span className="material-symbols-outlined text-xl">
-            alternate_email
-          </span>
-        }
+        icon={<AtSign size={18} className="text-on-surface-variant" />}
         placeholder="alex@devchallenge.io"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +59,7 @@ export const RegisterForm = () => {
         id="password"
         type="password"
         label="Password"
-        icon={<span className="material-symbols-outlined text-xl">lock</span>}
+        icon={<Lock size={18} className="text-on-surface-variant" />}
         placeholder="••••••••"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -73,11 +70,7 @@ export const RegisterForm = () => {
         id="confirm_password"
         type="password"
         label="Confirm Password"
-        icon={
-          <span className="material-symbols-outlined text-xl">
-            verified_user
-          </span>
-        }
+        icon={<ShieldCheck size={18} className="text-on-surface-variant" />}
         placeholder="••••••••"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -85,7 +78,7 @@ export const RegisterForm = () => {
       />
 
       <div className="pt-4">
-        <Button type="submit" icon="arrow_forward" isLoading={isLoading}>
+        <Button type="submit" icon={ArrowRight} isLoading={isLoading}>
           {isLoading ? "Registering..." : "Register"}
         </Button>
       </div>

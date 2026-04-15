@@ -1,3 +1,4 @@
+import { RefreshCcw, Sun, Moon, LogOut } from "lucide-react";
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthContext";
 import { useTheme } from "../../providers/ThemeContext";
@@ -56,7 +57,7 @@ export const RootLayout = () => {
             className="p-2 rounded-full hover:bg-primary/10 transition-colors text-primary"
             title="Refresh Data / Clear Cache"
           >
-            <span className="material-symbols-outlined">refresh</span>
+            <RefreshCcw size={18} />
           </button>
 
           <button
@@ -66,9 +67,7 @@ export const RootLayout = () => {
               theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
             }
           >
-            <span className="material-symbols-outlined">
-              {theme === "dark" ? "light_mode" : "dark_mode"}
-            </span>
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           <div className="flex items-center gap-3 pl-3 border-l border-outline-variant/20">
@@ -80,7 +79,7 @@ export const RootLayout = () => {
               className="p-2 rounded-full hover:bg-error/10 transition-colors text-error"
               title="Logout"
             >
-              <span className="material-symbols-outlined">logout</span>
+              <LogOut size={18} />
             </button>
           </div>
         </div>

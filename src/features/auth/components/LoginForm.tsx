@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AtSign, Lock, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthContext";
 import { Input } from "../../../components/ui/Input";
@@ -28,11 +29,7 @@ export const LoginForm = () => {
         id="email"
         type="email"
         label="Email Address"
-        icon={
-          <span className="material-symbols-outlined text-xl">
-            alternate_email
-          </span>
-        }
+        icon={<AtSign size={18} className="text-on-surface-variant" />}
         placeholder="alex@devchallenge.io"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -43,7 +40,7 @@ export const LoginForm = () => {
         id="password"
         type="password"
         label="Password"
-        icon={<span className="material-symbols-outlined text-xl">lock</span>}
+        icon={<Lock size={18} className="text-on-surface-variant" />}
         placeholder="••••••••"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -51,7 +48,7 @@ export const LoginForm = () => {
       />
 
       <div className="pt-4">
-        <Button type="submit" icon="arrow_forward" isLoading={isLoading}>
+        <Button type="submit" icon={ArrowRight} isLoading={isLoading}>
           {isLoading ? "Logging in..." : "Log In"}
         </Button>
       </div>

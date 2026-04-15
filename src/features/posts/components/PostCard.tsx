@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Post } from "../types";
 
@@ -14,7 +15,7 @@ export const PostCard = ({ post }: PostCardProps) => {
             {post.title}
           </h3>
           <div className="text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <ArrowRight size={18} />
           </div>
         </div>
         <p className="text-sm text-on-surface-variant leading-relaxed line-clamp-3">

@@ -5,7 +5,7 @@ import { FeatureCard } from "../features/auth/components/FeatureCard";
 
 export const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
-
+  
   return (
     <div className="bg-surface flex min-h-[calc(100vh-8rem)] items-center justify-center p-6 relative overflow-hidden font-body rounded-2xl">
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -15,7 +15,7 @@ export const LoginPage = () => {
       <main className="w-full max-w-md z-10">
         <div className="bg-surface-container-low p-8 md:p-12 rounded-xl shadow-[0px_20px_50px_rgba(0,0,0,0.5)] border border-outline-variant/10 relative overflow-hidden">
           <div className="mb-10 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary-container mb-6 shadow-lg shadow-primary/20">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-linear-to-br from-primary to-primary-container mb-6 shadow-lg shadow-primary/20">
               <span
                 className="material-symbols-outlined text-on-primary text-3xl"
                 style={{ fontVariationSettings: "'FILL' 1" }}

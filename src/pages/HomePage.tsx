@@ -16,14 +16,11 @@ export const HomePage = () => {
     isError,
   } = usePosts(page, pageSize, debouncedSearchTerm);
 
-  // Reset to page 1 on search change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setPage(1);
   };
 
-  // Note: JSONPlaceholder has exactly 100 posts.
-  // For a real API, we would get total count from a header or response body.
   const totalPosts = searchTerm ? posts?.length || 0 : 100;
   const pageCount = Math.ceil(totalPosts / pageSize);
 
@@ -32,7 +29,7 @@ export const HomePage = () => {
       <div className="flex flex-col gap-4">
         <Input
           id="search"
-          label="Search Posts"
+          label="Search Nexus"
           type="text"
           placeholder="Type a title..."
           value={searchTerm}

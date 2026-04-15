@@ -2,6 +2,7 @@ import { ArrowLeft, MessageSquare } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePost } from "../features/posts/hooks/usePosts";
 import { useComments } from "../features/comments/hooks/useComments";
+import { ScrollToTopButton } from "../components/ui/ScrollToTopButton";
 
 export const PostDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -121,6 +122,7 @@ export const PostDetailsPage = () => {
           ))}
         </div>
       </section>
+      <ScrollToTopButton />
     </main>
   );
 };

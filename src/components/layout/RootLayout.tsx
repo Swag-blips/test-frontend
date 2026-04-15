@@ -1,4 +1,5 @@
 import { RefreshCcw, Sun, Moon, LogOut } from "lucide-react";
+import { useEffect } from "react";
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthContext";
 import { useTheme } from "../../providers/ThemeContext";
@@ -10,6 +11,10 @@ export const RootLayout = () => {
   const { theme, toggleTheme } = useTheme();
   const queryClient = useQueryClient();
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   if (isLoading) {
     return (

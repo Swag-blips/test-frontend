@@ -20,6 +20,6 @@ describe("HomePage Component", () => {
       </QueryClientProvider>,
     );
 
-    expect(screen.getByLabelText("Search Posts")).toBeInTheDocument();
+    expect(screen.getByLabelText("Search Nexus")).toBeInTheDocument();
   });
 });

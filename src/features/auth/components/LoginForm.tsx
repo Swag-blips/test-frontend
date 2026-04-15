@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../providers/AuthProvider";
+import { useAuth } from "../../../providers/AuthContext";
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
+import toast from "react-hot-toast";
 
 export const LoginForm = () => {
   const { login, isLoading } = useAuth();
@@ -12,8 +13,13 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email);
-    navigate("/");
+    try {
+      await login(email);
+      toast.success("Welcome back!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Login failed. Please check your credentials.");
+    }
   };
 
   return (

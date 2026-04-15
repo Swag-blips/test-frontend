@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../providers/AuthProvider";
+import { useAuth } from "../../../providers/AuthContext";
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
+import toast from "react-hot-toast";
 
 export const RegisterForm = () => {
   const { login, isLoading } = useAuth();
@@ -15,12 +16,18 @@ export const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords don't match");
+      toast.error("Passwords don't match. Please check again.");
       return;
     }
-    // Mock registration by utilizing login sequence
-    await login(email);
-    navigate("/");
+
+    try {
+      // Mock registration by utilizing login sequence
+      await login(email);
+      toast.success(`Welcome, ${fullName || "Developer"}!`);
+      navigate("/");
+    } catch (error) {
+      toast.error("Registration failed. Please try again.");
+    }
   };
 
   return (
